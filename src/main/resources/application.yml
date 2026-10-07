@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: contabilidade
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/contabilidade}
+    username: ${DB_USER:contabilidade}
+    password: ${DB_PASSWORD:contabilidade}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc.time_zone: UTC
+  flyway:
+    enabled: true
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:troque-esta-chave-em-producao-minimo-32-bytes!!}
+    expiracao-minutos: ${JWT_EXPIRACAO_MINUTOS:60}
+  seed:
+    # Cria usuários de desenvolvimento (admin, contador, senior, auditor) se a tabela estiver vazia.
+    usuarios: ${SEED_USUARIOS:true}
+    senha-padrao: ${SEED_SENHA_PADRAO:trocar-123}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
